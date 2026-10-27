@@ -1,0 +1,72 @@
+<?php
+declare(strict_types=1);
+
+// TickerLogos SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+TickerLogosUtility::setRegistrar(function (TickerLogosUtility $u): void {
+    $u->clean = [TickerLogosClean::class, 'call'];
+    $u->clean_add = [TickerLogosClean::class, 'add'];
+    $u->clean_explain = [TickerLogosDone::class, 'clean_explain'];
+    $u->done = [TickerLogosDone::class, 'call'];
+    $u->make_error = [TickerLogosMakeError::class, 'call'];
+    $u->feature_add = [TickerLogosFeatureAdd::class, 'call'];
+    $u->feature_hook = [TickerLogosFeatureHook::class, 'call'];
+    $u->feature_init = [TickerLogosFeatureInit::class, 'call'];
+    $u->fetcher = [TickerLogosFetcher::class, 'call'];
+    $u->make_fetch_def = [TickerLogosMakeFetchDef::class, 'call'];
+    $u->make_context = [TickerLogosMakeContext::class, 'call'];
+    $u->make_options = [TickerLogosMakeOptions::class, 'call'];
+    $u->make_request = [TickerLogosMakeRequest::class, 'call'];
+    $u->make_response = [TickerLogosMakeResponse::class, 'call'];
+    $u->make_result = [TickerLogosMakeResult::class, 'call'];
+    $u->make_point = [TickerLogosMakePoint::class, 'call'];
+    $u->make_spec = [TickerLogosMakeSpec::class, 'call'];
+    $u->make_url = [TickerLogosMakeUrl::class, 'call'];
+    $u->param = [TickerLogosParam::class, 'call'];
+    $u->prepare_auth = [TickerLogosPrepareAuth::class, 'call'];
+    $u->prepare_body = [TickerLogosPrepareBody::class, 'call'];
+    $u->prepare_headers = [TickerLogosPrepareHeaders::class, 'call'];
+    $u->prepare_method = [TickerLogosPrepareMethod::class, 'call'];
+    $u->prepare_params = [TickerLogosPrepareParams::class, 'call'];
+    $u->prepare_path = [TickerLogosPreparePath::class, 'call'];
+    $u->prepare_query = [TickerLogosPrepareQuery::class, 'call'];
+    $u->graphql_body = [TickerLogosGraphql::class, 'body'];
+    $u->graphql_errors = [TickerLogosGraphql::class, 'errors'];
+    $u->result_basic = [TickerLogosResultBasic::class, 'call'];
+    $u->result_body = [TickerLogosResultBody::class, 'call'];
+    $u->result_headers = [TickerLogosResultHeaders::class, 'call'];
+    $u->transform_request = [TickerLogosTransformRequest::class, 'call'];
+    $u->transform_response = [TickerLogosTransformResponse::class, 'call'];
+});

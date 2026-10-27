@@ -1,0 +1,27 @@
+{
+  "existing": {
+    "get_logo": {
+      "GET_LOGO00": {
+        "id": "GET_LOGO00"
+      },
+      "GET_LOGO01": {
+        "id": "GET_LOGO01"
+      },
+      "GET_LOGO02": {
+        "id": "GET_LOGO02"
+      }
+    }
+  },
+  "new": {
+    "get_logo": {
+      "get_logo_ref01": {}
+    }
+  },
+  "requests": {
+    "GET /{domain}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

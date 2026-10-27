@@ -1,0 +1,14 @@
+{
+  "files": [
+    "SUMMARY.md"
+  ],
+  "config": ".sdk/doc/qa/vale.ini",
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Logo CDN",
+      "The logo image (observed: 128x128 PNG with transparency)",
+      "Ticker Logos by AllInvestView: a free CDN that returns a company&#39;s logo image for its website domain. No key or sign-up. Rate limit: 20,000 requests/day per IP, burst max 30 requests per 10 s (HTTP 429 beyond). Attribution: a visible dofollow link to https://www.allinvestview.com/tools/ticker-logos/ is required on every page that shows the logos. Knowledge source: the documentation page https://www.allinvestview.com/tools/ticker-logos/, probed live on 2026-10-23. Observed: logos come back as 128x128 RGBA PNG (`image/png`, cached for a year); the domain may carry a `www.` prefix or even a scheme (`https://apple.com` resolved); a ticker symbol such as `AAPL` is NOT accepted (HTTP 400 `&#123;&quot;error&quot;: &quot;Bad domain&quot;&#125;`) despite the catalogue blurb, and an unknown domain returns HTTP 404 `&#123;&quot;error&quot;: &quot;Not found&quot;&#125;` as JSON. Ticker-to-domain lookup is a separate search API on another host (GET https://www.allinvestview.com/api/logo-search/?q=AAPL, 60 requests/minute, returns &#123;query, count, results[&#123;symbol, name, website, exchange&#125;]&#125;); it is left out of this spec because the SDK takes a single base URL. Unverified: whether formats other than PNG are ever served (the docs say &quot;typically PNG&quot;); any size or format query options (none documented)."
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Ticker Logos",
+    "description": "Ticker Logos by AllInvestView: a free CDN that returns a company's logo image for its website domain. No key or sign-up. Rate limit: 20,000 requests/day per IP, burst max 30 requests per 10 s (HTTP 429 beyond). Attribution: a visible dofollow link to https://www.allinvestview.com/tools/ticker-logos/ is required on every page that shows the logos. Knowledge source: the documentation page https://www.allinvestview.com/tools/ticker-logos/, probed live on 2026-10-23. Observed: logos come back as 128x128 RGBA PNG (`image/png`, cached for a year); the domain may carry a `www.` prefix or even a scheme (`https://apple.com` resolved); a ticker symbol such as `AAPL` is NOT accepted (HTTP 400 `{\"error\": \"Bad domain\"}`) despite the catalogue blurb, and an unknown domain returns HTTP 404 `{\"error\": \"Not found\"}` as JSON. Ticker-to-domain lookup is a separate search API on another host (GET https://www.allinvestview.com/api/logo-search/?q=AAPL, 60 requests/minute, returns {query, count, results[{symbol, name, website, exchange}]}); it is left out of this spec because the SDK takes a single base URL. Unverified: whether formats other than PNG are ever served (the docs say \"typically PNG\"); any size or format query options (none documented).",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.allinvestview.com/tools/ticker-logos/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://cdn.tickerlogos.com",
+      "description": "Logo CDN"
+    }
+  ],
+  "paths": {
+    "/{domain}": {
+      "get": {
+        "summary": "Get a company logo by website domain",
+        "description": "Returns the logo image for a company's website domain. Use the image bytes directly or the request URL in an <img> tag.",
+        "operationId": "getLogo",
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "path",
+            "required": true,
+            "description": "The company's website domain, e.g. `apple.com` (a `www.` prefix also works). Ticker symbols are rejected with 400.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "apple.com"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The logo image (observed: 128x128 PNG with transparency).",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The path is not a valid domain (e.g. a ticker symbol).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Bad domain"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No logo is known for this domain.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Not found"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded (20,000 requests/day or 30 requests/10 s per IP)."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "description": "Error body.",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  }
+}

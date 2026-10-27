@@ -1,0 +1,32 @@
+# BasicGetLogoFlow
+
+main: kit: flow: BasicGetLogoFlow:
+{
+  entity: "get_logo",
+  kind: "basic",
+  name: "BasicGetLogoFlow",
+  step: [
+    {
+      i: {
+        ref: "get_logo_ref01",
+        srcdatavar: "get_logo_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "get_logo01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-get_logo_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGetLogoFlow"
+}
